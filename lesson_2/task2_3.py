@@ -287,4 +287,23 @@ class TestLinkedList2CyclePresence(unittest.TestCase):
 
         self.assertEqual(linked_list.cycle_presence(), False)
 
+class TestLinkedList2Sort(unittest.TestCase):
+    def test_empty_list(self):
+        linked_list = LinkedList2()
+        linked_list.sort()
+        self.assertIsNone(linked_list.head)
+        self.assertIsNone(linked_list.tail)
+
+    def test_nonempty_list(self):
+        linked_list = LinkedList2()
+        nodes = [Node(1), Node(3), Node(2)]
+
+        for node in nodes:
+            linked_list.add_in_tail(node)
+
+        linked_list.sort()
+        self.assertIs(linked_list.head.value, 1)
+        self.assertIs(linked_list.head.next.value, 2)
+        self.assertIs(linked_list.tail.value, 3)
+
 

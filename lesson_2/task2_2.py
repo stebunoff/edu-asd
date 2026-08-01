@@ -1,4 +1,6 @@
 # Lesson 2
+import unittest
+
 class Node:
     def __init__(self, v):
         self.value = v
@@ -155,4 +157,83 @@ class LinkedList2:
 
         return False
 
+    # Time complexity O(n)
+    # Space complexity O(1)
+    def cycle_presence_floyd(self):
+        slow = self.head
+        fast = self.head
 
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow is fast:
+                return True
+
+        return False
+
+    # Task 2.12 (sort)
+    # Time complexity O(n^2)
+    # Space complexity O(1)
+    def sort(self):
+        if self.head is None or self.head.next is None:
+            return
+
+        end = None
+        left = self.head
+
+        while end is not self.head:
+            if left.next is end:
+                end = left
+                left = self.head
+                continue
+
+            right = left.next
+            
+            if left.value <= right.value:
+                left = right
+                continue
+
+            left.value, right.value = (right.value, left.value)
+            left = right
+
+    # Task 2.13 (merge)
+    # Time complexity O(n * k), where k = number of lists and n = number of elements in all lists
+    # Space complexity O(k)
+    def merge(self, lists):
+        for lst in lists:
+            lst.sort()
+
+        result = LinkedList2()
+        current = [lst.head for lst in lists]
+
+        while True:
+            min_node = None
+            min_index = None
+
+            for i, node in enumerate(current):
+                if node is None:
+                    continue
+
+                if min_node is None or node.value < min_node.value:
+                    min_node = node
+                    min_index = i
+
+            if min_node is None:
+                break
+
+            result.add_in_tail(Node(min_node.value))
+            current[min_index] = min_node.next
+
+        return result
+
+рефлексия
+2.9: Решение соответствует эталонному.
+2.10: Эталонное решение лучше моего по памяти (работает за О(1)).
+Чтобы реализовать эталонное решение, мне потребуется переделать метод len (хранить длину в отдельном поле), так как в текущей реализации len зациклится, если в списке уже есть цикл.
+Ещё почитал про методы поиска циклов и наткнулся на алгоритм "Черепаха и заяц" Флойда, который как и эталонное решение выполняется за О(1). Запомнил его на будущее.
+2.11 Попытался реализовать вместо пузырьковой сортировки сортировку слиянием, запутался в указателях и в итоге не успел сдать доп. задачу. Учту на будущее, что лучше предложить более простое решение, чем не успеть совсем.
+2.12 Задачу удалось решить, когда в голове появились приёмы:
+- указатели можно хранить в отдельном массиве;
+- циклы можно вкладывать в циклы (путал с вложенными друг в друга if);
+2.13 Мне импонирует решение через Dummy-узел, так как более явно считывается логика расстановки указателей. Если использовать флаги, то очень легко допустить ошибку, запутавшись в указателях + уже через несколько дней детали вылетают из головы и требуется заново разбираться, как работает код.
