@@ -1,6 +1,4 @@
 # Lesson 2
-import unittest
-
 class Node:
     def __init__(self, v):
         self.value = v
