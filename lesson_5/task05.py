@@ -11,7 +11,7 @@ class Queue:
     def __init__(self):
         self.tail = None
         self.head = None
-        self.size = 0
+        self._size = 0
 
     # Task 5.2 (complexity)
     # Time complexity O(1)
@@ -20,13 +20,13 @@ class Queue:
         if self.tail is None:
             self.tail = item
             self.head = item
-            self.size += 1
+            self._size += 1
             return
 
         self.tail.prev = item
         item.next = self.tail
         self.tail = item
-        self.size += 1
+        self._size += 1
 
     # Time complexity O(1)
     # Space complexity O(1)
@@ -39,14 +39,20 @@ class Queue:
         if self.head.prev is None:
             self.head = None
             self.tail = None
-            self.size -= 1
+            self._size -= 1
             return element
 
         self.head.prev.next = None
         self.head = self.head.prev
         element.prev = None
         element.next = None
-        self.size -= 1
+        self._size -= 1
         return element
+
+    def size(self):
+        if not self._size:
+            raise ValueError("Queue is empty")
+
+        return self._size
 
 
