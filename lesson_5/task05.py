@@ -43,14 +43,14 @@ class Queue:
             self.head = None
             self.tail = None
             self._size -= 1
-            return element
+            return element.value
 
         self.head.prev.next = None
         self.head = self.head.prev
         element.prev = None
         element.next = None
         self._size -= 1
-        return element
+        return element.value
 
     def size(self):
         return self._size

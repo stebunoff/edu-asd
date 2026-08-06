@@ -45,7 +45,7 @@ class TestQueueDequeue(unittest.TestCase):
     def test_dequeue_one_element_list(self):
         queue = Queue()
         queue.enqueue(Node(1))
-        queue.dequeue()
+        self.assertEqual(queue.dequeue(), 1)
         self.assertEqual(queue.size(), 0)
         self.assertIsNone(queue.head)
         self.assertIsNone(queue.tail)
@@ -58,7 +58,7 @@ class TestQueueDequeue(unittest.TestCase):
         queue.enqueue(node1)
         queue.enqueue(node2)
         queue.enqueue(node3)
-        queue.dequeue()
+        self.assertEqual(queue.dequeue(), 1)
         self.assertEqual(queue.size(), 2)
         self.assertIs(queue.head, node2)
         self.assertIs(queue.head.prev, node3)
