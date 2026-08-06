@@ -17,6 +17,9 @@ class Queue:
     # Time complexity O(1)
     # Space complexity O(1)
     def enqueue(self, item):
+        if not isinstance(item, Node):
+            item = Node(item)
+
         if self.tail is None:
             self.tail = item
             self.head = item
