@@ -50,9 +50,6 @@ class Queue:
         return element
 
     def size(self):
-        if not self._size:
-            raise ValueError("Queue is empty")
-
         return self._size
 
 

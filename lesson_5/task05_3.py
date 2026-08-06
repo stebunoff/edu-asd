@@ -4,13 +4,12 @@ import unittest
 class TestQueueSize(unittest.TestCase):
     def test_size_empty_list(self):
         queue = Queue()
-        with self.assertRaises(ValueError):
-            queue.size()
+        self.assertEqual(queue.size(), 0)
 
     def test_size_nonempty_list(self):
         queue = Queue()
         queue.enqueue(Node(1))
-        self.assertEqual(queue._size, 1)
+        self.assertEqual(queue.size(), 1)
 
 # Task 5.1 (enqueue & dequeue)
 class TestQueueEnqueue(unittest.TestCase):
@@ -41,13 +40,13 @@ class TestQueueDequeue(unittest.TestCase):
     def test_dequeue_empty_list(self):
         queue = Queue()
         self.assertIsNone(queue.dequeue())
-        self.assertEqual(queue._size, 0)
+        self.assertEqual(queue.size(), 0)
 
     def test_dequeue_one_element_list(self):
         queue = Queue()
         queue.enqueue(Node(1))
         queue.dequeue()
-        self.assertEqual(queue._size, 0)
+        self.assertEqual(queue.size(), 0)
         self.assertIsNone(queue.head)
         self.assertIsNone(queue.tail)
 
@@ -73,7 +72,7 @@ class TestQueueRound(unittest.TestCase):
     def test_round_empty_list(self):
         queue = Queue()
         queue.round(2)
-        self.assertEqual(queue.size, 0)
+        self.assertEqual(queue.size(), 0)
 
     def test_round_nonempty_list(self):
         queue = Queue()
@@ -88,7 +87,7 @@ class TestQueueRound(unittest.TestCase):
         queue.enqueue(node4)
         queue.enqueue(node5)
         queue.round(3)
-        self.assertEqual(queue.size, 5)
+        self.assertEqual(queue.size(), 5)
         self.assertEqual(queue.head, node4)
         self.assertEqual(queue.tail, node3)
         self.assertIsNone(node4.next)
@@ -121,7 +120,7 @@ class TestQueueRevert(unittest.TestCase):
     def test_revert_empty_list(self):
         queue = Queue()
         queue.revert()
-        self.assertEqual(queue.size, 0)
+        self.assertEqual(queue.size(), 0)
 
     def test_revert_nonempty_list(self):
         queue = Queue()
@@ -138,7 +137,7 @@ class TestQueueRevert(unittest.TestCase):
         queue.enqueue(node2)
         queue.enqueue(node3)
         queue.revert()
-        self.assertEqual(queue.size, 3)
+        self.assertEqual(queue.size(), 3)
         self.assertIs(queue.dequeue(), node3)
         self.assertIs(queue.dequeue(), node2)
         self.assertIs(queue.dequeue(), node1)
